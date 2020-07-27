@@ -1,0 +1,60 @@
+
+
+
+create table account_executive(login_id varchar2(15) primary key, 
+password varchar2(20)not null, mobile number(10) not null unique,
+secret_answer varchar2(20) not null)
+
+
+
+create table userstore_a(login_id varchar2(15) primary key, password varchar2(20), logged_at timestamp(2))
+
+
+CREATE SEQUENCE cust_seq_a
+  MINVALUE 10000
+  START WITH 10000
+  INCREMENT BY 1
+  CACHE 20;
+  
+
+
+create table customer_a(
+   ssn_id varchar2(12) primary key, cust_id number(6) not null unique, customer_name varchar2(20) not null,
+   age number(3) not null, mobile number(10) not null unique, email varchar2(30) not null, 
+   address varchar2(30) not null, city varchar2(20) not null, state varchar2(20) not null
+)
+
+
+
+CREATE SEQUENCE account_seq_a
+  MINVALUE 900000
+  START WITH 900001
+  INCREMENT BY 1
+  CACHE 20;
+
+create table account_a(
+   account_id number(10) primary key, account_type varchar2(10) not null, balance number(10,2) not null,
+   customer_id references customer_a(cust_id)
+)
+
+
+
+create table account_status_a(
+   customer_id references customer_a(cust_id),
+   account_id references account_a(account_id),
+   account_type varchar2(10) not null, account_status varchar2(10) not null,
+   message varchar2(30),
+   last_updated timestamp(2),
+   primary key (customer_id,account_id)
+)
+
+
+create table customer_status(
+   ssn_id references customer_a(ssn_id),
+   customer_id references customer_a(cust_id),
+   status varchar2(10) not null,
+   message varchar2(30),
+   last_updated timestamp,
+   primary key(ssn_id,customer_id)
+)
+

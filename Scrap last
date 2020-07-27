@@ -1,0 +1,4 @@
+select cust_id from customer_a where cust_id=10002
+
+
+select * from CUSTOMER_A
